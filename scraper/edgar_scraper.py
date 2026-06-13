@@ -20,7 +20,7 @@ from config import SEC_HEADERS, SEC_BASE_URL, COMPANIES, START_YEAR, END_YEAR
 def rate_limited_get(url, pause=0.2):
     time.sleep(pause)
     headers = {
-        "User-Agent": "Chaitanya chaitanya@email.com",
+        "User-Agent": "{yourname} {provide-mail-id}",
         "Accept-Encoding": "gzip, deflate",
     }
     r = requests.get(url, headers=headers)

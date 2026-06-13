@@ -57,17 +57,27 @@ def fetch_prices() -> pd.DataFrame:
         try:
             df = yf.download(
                 ticker,
-                start    = "2019-01-01",
-                end      = "2024-12-31",
-                progress = False
+                start       = "2019-01-01",
+                end         = "2024-12-31",
+                progress    = False,
+                auto_adjust = True
             )
             if not df.empty:
-                frames[name] = df["Close"]
+                if isinstance(df.columns, pd.MultiIndex):
+                    close = df["Close"].iloc[:, 0]
+                else:
+                    close = df["Close"]
+                close.index = pd.to_datetime(close.index)
+                frames[name] = close
                 print(f"  ✅ {ticker}")
         except Exception as e:
             print(f"  ⚠️  {ticker}: {e}")
 
-    prices = pd.DataFrame(frames)
+    if not frames:
+        raise ValueError("No price data fetched")
+
+    prices = pd.concat(frames, axis=1)
+    prices.columns = list(frames.keys())
     prices.index = pd.to_datetime(prices.index)
     return prices
 

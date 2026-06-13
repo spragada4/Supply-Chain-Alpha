@@ -67,7 +67,6 @@ See `output/research_note.md` for full methodology and results.
 - Fine-tune FinBERT on supply chain specific language
 - Add transaction cost model to backtest
 
-## Author
-
+## Author: Sri Pragada
 Built as a portfolio project demonstrating geospatial + NLP alpha research.
 Not investment advice.
